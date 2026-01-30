@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight } from 'lucide-react'; 
-// IMPORT YOUR LOGO HERE
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import logoImg from '../assets/V-Lead_Logo1-2048x488.png';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -22,57 +17,56 @@ const Header = () => {
   }, []);
 
   const navLinks = [
-    { name: "Services", href: "#Services" },
-    { name: "About Us", href: "#about" },
-    { name: "Contact", href: "#Contact" },
-    { name: "Career", href: "#Careers" },
-
+    { name: "Home", path: "/" },
+    { name: "Services", path: "/services" },
+    {name: "ContactUs", path:"/contact"},
   ];
 
   return (
-    // 'fixed' makes it stick to top. 'z-50' ensures it is above the Hero image.
-    <header 
+    <header
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-md shadow-sm py-4' 
+        isScrolled
+          ? 'bg-white/90 backdrop-blur-md shadow-sm py-4'
           : 'bg-transparent py-6'
       }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
-        
-        {/* LOGO IMAGE REPLACEMENT */}
-        <div className="flex items-center gap-2 cursor-pointer">
-          <img 
-            src={logoImg} 
-            alt="V-Lead Logo" 
-            // 'h-10' sets the height to 40px, w-auto keeps the aspect ratio correct
-            className="h-10 w-auto object-contain" 
+
+        {/* LOGO */}
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src={logoImg}
+            alt="V-Lead Logo"
+            className="h-10 w-auto object-contain"
           />
-        </div>
+        </Link>
 
         {/* DESKTOP NAV */}
         <nav className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
+            <Link
+              key={link.name}
+              to={link.path}
               className="text-sm font-medium text-gray-600 hover:text-black transition-colors"
             >
               {link.name}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        {/* CTA BUTTON */}
+        {/* CTA */}
         <div className="hidden md:flex items-center gap-4">
-           <button className="group flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5">
+          <Link
+            to="/contact"
+            className="group flex items-center gap-2 bg-blue-600 text-white px-5 py-2.5 rounded-full text-sm font-medium hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl hover:-translate-y-0.5"
+          >
             Contact Us
             <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-          </button>
+          </Link>
         </div>
 
         {/* MOBILE MENU TOGGLE */}
-        <button 
+        <button
           className="md:hidden text-gray-900 p-2"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
@@ -80,26 +74,28 @@ const Header = () => {
         </button>
       </div>
 
-      {/* MOBILE MENU DROPDOWN */}
+      {/* MOBILE MENU */}
       {isMobileMenuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white border-b border-gray-100 p-6 md:hidden shadow-xl animate-in slide-in-from-top-5">
+        <div className="absolute top-full left-0 w-full bg-white border-b border-gray-100 p-6 md:hidden shadow-xl">
           <nav className="flex flex-col space-y-4">
             {navLinks.map((link) => (
-              <a 
-                key={link.name} 
-                href={link.href}
+              <Link
+                key={link.name}
+                to={link.path}
                 className="text-lg font-medium text-gray-900"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.name}
-              </a>
+              </Link>
             ))}
             <hr className="border-gray-100 my-2" />
-            <div className="flex flex-col gap-3">
-              <button className="w-full bg-black text-white py-3 rounded-xl font-medium">
-                Contact US
-              </button>
-            </div>
+            <Link
+              to="/contact"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full text-center bg-black text-white py-3 rounded-xl font-medium"
+            >
+              Contact Us
+            </Link>
           </nav>
         </div>
       )}
