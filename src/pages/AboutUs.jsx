@@ -1,6 +1,6 @@
 import React from 'react';
 // Your specific assets
-import kiran from "../assets/kiran.png"; 
+import kiran from "../assets/Kiran.png"; 
 import Nithasha from "../assets/Nithasha.png";
 import Sudha from "../assets/Sudha.png";
 import Amit from "../assets/3-682x1024.jpg";
