@@ -9,6 +9,7 @@ import ServicePage from './pages/ServicePgae'
 import ContactPage from './pages/ContactPage'
 import AboutUs from './pages/AboutUs'
 import ScrollToTop from './components/ScrollToTop'
+import CareerPage from './pages/CareerPage'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/services" element={<ServicePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/careers" element={<CareerPage />} />
         </Routes>
       </main>
 
@@ -34,4 +36,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
